@@ -1,0 +1,57 @@
+const textElement = document.getElementById("typing-text");
+
+const words = [
+    "WEB DEVELOPER",
+    "COMPUTER ENTHUSIAST",
+    "CREATIVE MIND",
+    "TECH EXPLORER"
+];
+
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+
+        textElement.textContent =
+            currentWord.substring(0, charIndex + 1);
+
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+
+            deleting = true;
+
+            setTimeout(typeEffect, 1500);
+            return;
+        }
+
+    } else {
+
+        textElement.textContent =
+            currentWord.substring(0, charIndex - 1);
+
+        charIndex--;
+
+        if (charIndex === 0) {
+
+            deleting = false;
+
+            wordIndex++;
+
+            if (wordIndex === words.length) {
+                wordIndex = 0;
+            }
+        }
+    }
+
+    const speed = deleting ? 50 : 100;
+
+    setTimeout(typeEffect, speed);
+}
+
+typeEffect();
